@@ -19,7 +19,7 @@
     }
     $username = $_SESSION["username"];
     $servername = 'bibliotekaprojekt-server.mysql.database.azure.com';
-    $db_name = 'mydatabse';
+    $db_name = 'mydatabase';
     $db_username = 'tmdzlzwxgh';
     $db_password = 'Projekt123';
     $filtro = $_GET["ordine"];

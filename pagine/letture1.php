@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <title>Biblioteca - Inizia lettura</title>
+    <title>Biblioteka - Rozpocznij lekturę</title>
     <?php
     session_start();
     if (!isset($_SESSION['username'])) {
@@ -19,7 +18,7 @@
     }
     $username = $_SESSION["username"];
     $servername = 'bibliotekaprojekt-server.mysql.database.azure.com';
-    $db_name = 'mydatabse';
+    $db_name = 'mydatabase'; // Poprawione na 'mydatabase'
     $db_username = 'tmdzlzwxgh';
     $db_password = 'Projekt123';
     $error = true;
@@ -28,21 +27,20 @@
 
 <body>
     <ul class="barra">
-        <li class="barra"><a class="barra" href="home.php?ordine">Home</a></li>
-        <li class="barra"><a class="barra" href="aggiungi.php">Aggiungi</a></li>
-        <li class="barra"><a class="barra" href="letture.php">Letture</a></li>
-        <li class="barra" style="float: right;"><a class="barra" href="logout.php">Logout</a></li>
+        <li class="barra"><a class="barra" href="home.php?ordine">Strona główna</a></li>
+        <li class="barra"><a class="barra" href="aggiungi.php">Dodaj książkę</a></li>
+        <li class="barra"><a class="barra" href="letture.php">Lektury</a></li>
+        <li class="barra" style="float: right;"><a class="barra" href="logout.php">Wyloguj</a></li>
     </ul>
 
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (/*$_POST["titolo"] == "" or*/$_POST["inizio"] == "") {
-            //echo "Campi lasciati vuoti";
+        if ($_POST["inizio"] == "") {
             echo "<div class='row' id='login'>
                             <div class='col-sm-4'></div>
                             <div class='alert alert-danger alert-dismissible fade in col-sm-4'>
                                 <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-                                <strong>Danger!</strong> Campi lasciati vuoti.
+                                <strong>Błąd!</strong> Pole rozpoczęcia lektury nie może być puste.
                             </div>
                         </div>";
         } else {
@@ -52,7 +50,7 @@
             $sql = "SELECT codice
                         FROM libri
                         WHERE titolo='$titolo'";
-            $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+            $ris = $conn->query($sql) or die("<p>Błąd zapytania! " . $conn->error . "</p>");
             $row = $ris->fetch_assoc();
 
             $sql1 = "INSERT INTO letture (codice, utente, inizio)
@@ -62,7 +60,6 @@
             if ($conn->query($sql1) === true) {
                 header("location: letture2.php");
             } else {
-                //echo "Registrazione non riuscita: " . $conn->error;
                 $error = false;
             }
         }
@@ -72,17 +69,17 @@
     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
         <div class="form1">
             <div id="titolo1">
-                <h1 class="aggiungi"><b>Inizia lettura</b></h1>
+                <h1 class="aggiungi"><b>Rozpocznij lekturę</b></h1>
             </div>
             <div class="btn-group btn-group-justified" style="width: 500px; margin: auto;">
-                <a href="letture1.php" class="btn btn-primary">Inizia lettura</a>
-                <a href="letture2.php" class="btn btn-primary">Letture in corso</a>
-                <a href="letture3.php" class="btn btn-primary">Elenco letture</a>
+                <a href="letture1.php" class="btn btn-primary">Rozpocznij lekturę</a>
+                <a href="letture2.php" class="btn btn-primary">Lektury w trakcie</a>
+                <a href="letture3.php" class="btn btn-primary">Lista lektur</a>
             </div>
             <div class="row" id="login">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4" style="text-align: left; margin-top: 50px;">
-                    <label for="sel1">Titolo:</label>
+                    <label for="sel1">Tytuł:</label>
                     <select class="form-control" id="sel1" name="titolo">
                         <?php
                         $conn = new mysqli($servername, $db_username, $db_password, $db_name);
@@ -90,7 +87,7 @@
                                     FROM libri
                                     ORDER BY titolo";
 
-                        $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+                        $ris = $conn->query($sql) or die("<p>Błąd zapytania! " . $conn->error . "</p>");
                         if ($ris->num_rows > 0) {
                             while ($row = $ris->fetch_assoc()) {
                                 echo "<option>" . $row["titolo"] . "</option>";
@@ -109,7 +106,7 @@
             <div class="row" id="login">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <input class="btn btn-primary" id="bottone1" type="submit" value="Inizia lettura">
+                    <input class="btn btn-primary" id="bottone1" type="submit" value="Rozpocznij lekturę">
                 </div>
             </div>
         </div>
@@ -118,12 +115,12 @@
     <?php
     if ($error == false) {
         echo "<div class='row' id='login'>
-                                <div class='col-sm-4'></div>
-                                <div class='alert alert-danger alert-dismissible fade in col-sm-4'>
-                                    <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-                                    <strong>Danger!</strong> Registrazione non riuscita.
-                                </div>
-                            </div>";
+                <div class='col-sm-4'></div>
+                <div class='alert alert-danger alert-dismissible fade in col-sm-4'>
+                    <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                    <strong>Błąd!</strong> Rejestracja nie powiodła się.
+                </div>
+            </div>";
     }
     ?>
 

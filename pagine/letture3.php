@@ -12,47 +12,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/bb4d7bec8d.js" crossorigin="anonymous"></script>
-    <title>Biblioteca - Elenco letture</title>
+    <title>Biblioteka - Lista książek</title>
     <?php
     session_start();
     if (!isset($_SESSION['username'])) {
         header('location: logout.php');
     }
     $username = $_SESSION["username"];
-    $servername = $_SESSION["servername"];
-    $db_name = $_SESSION["db_name"];
-    $db_username = $_SESSION["db_username"];
-    $db_password = $_SESSION["db_password"];
+    $servername = 'bibliotekaprojekt-server.mysql.database.azure.com';
+    $db_name = 'mydatabase'; // Zmieniono na 'mydatabase'
+    $db_username = 'tmdzlzwxgh';
+    $db_password = 'Projekt123';
     ?>
 </head>
 
 <body>
     <ul class="barra">
         <li class="barra"><a class="barra" href="home.php?ordine">Home</a></li>
-        <li class="barra"><a class="barra" href="aggiungi.php">Aggiungi</a></li>
-        <li class="barra"><a class="barra" href="letture.php">Letture</a></li>
-        <li class="barra" style="float: right;"><a class="barra" href="logout.php">Logout</a></li>
+        <li class="barra"><a class="barra" href="aggiungi.php">Dodaj książkę</a></li>
+        <li class="barra"><a class="barra" href="letture.php">Wypożyczenia</a></li>
+        <li class="barra" style="float: right;"><a class="barra" href="logout.php">Wyloguj</a></li>
     </ul>
     <div id="titolo2">
-        <h1 class="aggiungi"><b>Elenco letture</b></h1>
+        <h1 class="aggiungi"><b>Lista wypożyczeń</b></h1>
     </div>
     <div class="btn-group btn-group-justified" style="width: 500px; margin: auto;">
-        <a href="letture1.php" class="btn btn-primary">Inizia lettura</a>
-        <a href="letture2.php" class="btn btn-primary">Letture in corso</a>
-        <a href="letture3.php" class="btn btn-primary">Elenco letture</a>
+        <a href="letture1.php" class="btn btn-primary">Rozpocznij czytanie</a>
+        <a href="letture2.php" class="btn btn-primary">Aktualne wypożyczenia</a>
+        <a href="letture3.php" class="btn btn-primary">Lista wypożyczeń</a>
     </div>
 
     <div class="tabella">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Codice</th>
-                    <th>Titolo</th>
-                    <th>Autore</th>
-                    <th>Genere</th>
-                    <th style='text-align: center;'>Data di inizio</th>
-                    <th style='text-align: center;'>Data di fine</th>
-                    <th style='text-align: center;'>Preferiti</th>
+                    <th>Kod</th>
+                    <th>Tytuł</th>
+                    <th>Autor</th>
+                    <th>Gatunek</th>
+                    <th style='text-align: center;'>Data rozpoczęcia</th>
+                    <th style='text-align: center;'>Data zakończenia</th>
+                    <th style='text-align: center;'>Ulubione</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,14 +64,13 @@
                         $sql = "UPDATE letture
                                 SET preferiti= '1'
                                 WHERE codice='" . $_POST["cod"] . "'";
-                        $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+                        $ris = $conn->query($sql) or die("<p>Query failed! " . $conn->error . "</p>");
                         header("Refresh:1");
                     } else if (isset($_POST['1'])) {
                         $sql = "UPDATE letture
                                 SET preferiti= '0'
                                 WHERE codice='" . $_POST["cod"] . "'";
-                        $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
-                        //header('location: letture3.php');
+                        $ris = $conn->query($sql) or die("<p>Query failed! " . $conn->error . "</p>");
                     }
                 }
 
@@ -81,7 +80,7 @@
                             WHERE inizio IS NOT NULL AND fine IS NOT NULL AND utente='$username'
                             ORDER BY DATE_FORMAT(fine, '%Y/%m/%d') DESC";
 
-                $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+                $ris = $conn->query($sql) or die("<p>Query failed! " . $conn->error . "</p>");
 
                 if ($ris->num_rows > 0) {
                     $x = 0;
