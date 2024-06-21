@@ -37,7 +37,6 @@
     </div>-->
     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
         <div class="right">
-            <img src="immagini/libro.png" alt="libro">
         </div>
         <div class="form">
             <div class="row" id="titolo">
