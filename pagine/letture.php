@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../CSS/MyCss.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <title>Biblioteca - Letture</title>
     <?php
-        session_start();
-        if(!isset($_SESSION['username'])){
-            header('location: logout.php');
-		}
-		$username = $_SESSION["username"];
-		$servername = $_SESSION["servername"];
-		$db_name = $_SESSION["db_name"];
-		$db_username = $_SESSION["db_username"];
-		$db_password = $_SESSION["db_password"];
+    session_start();
+    if (!isset($_SESSION['username'])) {
+        header('location: logout.php');
+    }
+    $username = $_SESSION["username"];
+    $servername = 'bibliotekaprojekt-server.mysql.database.azure.com';
+    $db_name = 'mydatabse';
+    $db_username = 'tmdzlzwxgh';
+    $db_password = 'Projekt123';
     ?>
 </head>
+
 <body>
     <ul class="barra">
         <li class="barra"><a class="barra" href="home.php?ordine">Home</a></li>
@@ -43,4 +45,5 @@
         <p class="cit_a">Northrop Frye</p>
     </div>
 </body>
+
 </html>

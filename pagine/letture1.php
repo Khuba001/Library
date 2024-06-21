@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../CSS/MyCss.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <title>Biblioteca - Inizia lettura</title>
     <?php
-        session_start();
-        if(!isset($_SESSION['username'])){
-            header('location: logout.php');
-		}
-		$username = $_SESSION["username"];
-		$servername = $_SESSION["servername"];
-		$db_name = $_SESSION["db_name"];
-		$db_username = $_SESSION["db_username"];
-		$db_password = $_SESSION["db_password"];
-        $error = true;
+    session_start();
+    if (!isset($_SESSION['username'])) {
+        header('location: logout.php');
+    }
+    $username = $_SESSION["username"];
+    $servername = $_SESSION["servername"];
+    $db_name = $_SESSION["db_name"];
+    $db_username = $_SESSION["db_username"];
+    $db_password = $_SESSION["db_password"];
+    $error = true;
     ?>
 </head>
+
 <body>
     <ul class="barra">
         <li class="barra"><a class="barra" href="home.php?ordine">Home</a></li>
@@ -33,38 +35,38 @@
     </ul>
 
     <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if(/*$_POST["titolo"] == "" or*/ $_POST["inizio"] == ""){
-                //echo "Campi lasciati vuoti";
-                echo "<div class='row' id='login'>
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (/*$_POST["titolo"] == "" or*/$_POST["inizio"] == "") {
+            //echo "Campi lasciati vuoti";
+            echo "<div class='row' id='login'>
                             <div class='col-sm-4'></div>
                             <div class='alert alert-danger alert-dismissible fade in col-sm-4'>
                                 <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
                                 <strong>Danger!</strong> Campi lasciati vuoti.
                             </div>
                         </div>";
-            } else {
-                $titolo = $_POST["titolo"];
-                $conn = new mysqli($servername,$db_username,$db_password,$db_name);
+        } else {
+            $titolo = $_POST["titolo"];
+            $conn = new mysqli($servername, $db_username, $db_password, $db_name);
 
-                $sql = "SELECT codice
+            $sql = "SELECT codice
                         FROM libri
                         WHERE titolo='$titolo'";
-                $ris = $conn->query($sql) or die("<p>Query fallita! ".$conn->error."</p>");
-                $row = $ris->fetch_assoc();
+            $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+            $row = $ris->fetch_assoc();
 
-                $sql1 = "INSERT INTO letture (codice, utente, inizio)
-                        VALUES ('".$row["codice"]."',
-                            '".$username."', 
-                            '".$_POST["inizio"]."')";
-                if($conn->query($sql1) === true) {
-                    header("location: letture2.php");
-                } else {
-                    //echo "Registrazione non riuscita: " . $conn->error;
-                    $error = false;
-                }
-            }           
+            $sql1 = "INSERT INTO letture (codice, utente, inizio)
+                        VALUES ('" . $row["codice"] . "',
+                            '" . $username . "', 
+                            '" . $_POST["inizio"] . "')";
+            if ($conn->query($sql1) === true) {
+                header("location: letture2.php");
+            } else {
+                //echo "Registrazione non riuscita: " . $conn->error;
+                $error = false;
+            }
         }
+    }
     ?>
 
     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
@@ -83,17 +85,17 @@
                     <label for="sel1">Titolo:</label>
                     <select class="form-control" id="sel1" name="titolo">
                         <?php
-                            $conn = new mysqli($servername,$db_username,$db_password,$db_name);
-                            $sql = "SELECT titolo
+                        $conn = new mysqli($servername, $db_username, $db_password, $db_name);
+                        $sql = "SELECT titolo
                                     FROM libri
                                     ORDER BY titolo";
-                
-                            $ris = $conn->query($sql) or die("<p>Query fallita! ".$conn->error."</p>");
-                            if ($ris->num_rows > 0) {
-                                while($row = $ris->fetch_assoc()) {
-                                    echo "<option>".$row["titolo"]."</option>";
-                                }
+
+                        $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+                        if ($ris->num_rows > 0) {
+                            while ($row = $ris->fetch_assoc()) {
+                                echo "<option>" . $row["titolo"] . "</option>";
                             }
+                        }
                         ?>
                     </select>
                 </div>
@@ -107,23 +109,24 @@
             <div class="row" id="login">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <input class="btn btn-primary" id ="bottone1" type="submit" value="Inizia lettura">
+                    <input class="btn btn-primary" id="bottone1" type="submit" value="Inizia lettura">
                 </div>
             </div>
         </div>
     </form>
 
     <?php
-        if($error == false) {
-            echo "<div class='row' id='login'>
+    if ($error == false) {
+        echo "<div class='row' id='login'>
                                 <div class='col-sm-4'></div>
                                 <div class='alert alert-danger alert-dismissible fade in col-sm-4'>
                                     <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
                                     <strong>Danger!</strong> Registrazione non riuscita.
                                 </div>
                             </div>";
-        }
+    }
     ?>
-    
+
 </body>
+
 </html>

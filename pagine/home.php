@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../CSS/MyCss.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <title>Biblioteca - Home</title>
     <?php
-        session_start();
-        if(!isset($_SESSION['username'])){
-            header('location: logout.php');
-		}
-		$username = $_SESSION["username"];
-		$servername = $_SESSION["servername"];
-		$db_name = $_SESSION["db_name"];
-		$db_username = $_SESSION["db_username"];
-        $db_password = $_SESSION["db_password"];
-        $filtro=$_GET["ordine"];
+    session_start();
+    if (!isset($_SESSION['username'])) {
+        header('location: logout.php');
+    }
+    $username = $_SESSION["username"];
+    $servername = $_SESSION["servername"];
+    $db_name = $_SESSION["db_name"];
+    $db_username = $_SESSION["db_username"];
+    $db_password = $_SESSION["db_password"];
+    $filtro = $_GET["ordine"];
     ?>
 </head>
+
 <body>
     <ul class="barra">
         <li class="barra"><a class="barra" href="home.php?ordine">Home</a></li>
@@ -38,7 +40,7 @@
         <a href="home.php?ordine=titolo" class="btn btn-primary">Titolo</a>
         <a href="home.php?ordine=autore" class="btn btn-primary">Autore</a>
         <a href="home.php?ordine=genere" class="btn btn-primary">Genere</a>
-	</div>
+    </div>
     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
         <div class="cerca">
             <div class="input-group">
@@ -52,43 +54,43 @@
         </div>
     </form>
     <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $conn = new mysqli($servername,$db_username,$db_password,$db_name);
-                $sql = "SELECT codice, titolo, autore, genere, posizione
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $conn = new mysqli($servername, $db_username, $db_password, $db_name);
+        $sql = "SELECT codice, titolo, autore, genere, posizione
                         FROM libri 
-                        WHERE titolo LIKE '%".$_POST["ricerca"]."%'";
-                //echo $sql;
+                        WHERE titolo LIKE '%" . $_POST["ricerca"] . "%'";
+        //echo $sql;
 
-                $ris = $conn->query($sql) or die("<p>Query fallita!</p>");
-        }else if($filtro == "titolo"){
-            $conn = new mysqli($servername,$db_username,$db_password,$db_name);
-            $sql = "SELECT codice, titolo, autore, genere, posizione
+        $ris = $conn->query($sql) or die("<p>Query fallita!</p>");
+    } else if ($filtro == "titolo") {
+        $conn = new mysqli($servername, $db_username, $db_password, $db_name);
+        $sql = "SELECT codice, titolo, autore, genere, posizione
                     FROM libri
                     ORDER BY titolo";
 
-            $ris = $conn->query($sql) or die("<p>Query fallita! ".$conn->error."</p>");
-        } else if($filtro == "autore"){
-            $conn = new mysqli($servername,$db_username,$db_password,$db_name);
-            $sql = "SELECT codice, titolo, autore, genere, posizione
+        $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+    } else if ($filtro == "autore") {
+        $conn = new mysqli($servername, $db_username, $db_password, $db_name);
+        $sql = "SELECT codice, titolo, autore, genere, posizione
                     FROM libri
                     ORDER BY autore";
 
-            $ris = $conn->query($sql) or die("<p>Query fallita! ".$conn->error."</p>");
-        } else if($filtro == "genere"){
-            $conn = new mysqli($servername,$db_username,$db_password,$db_name);
-            $sql = "SELECT codice, titolo, autore, genere, posizione
+        $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+    } else if ($filtro == "genere") {
+        $conn = new mysqli($servername, $db_username, $db_password, $db_name);
+        $sql = "SELECT codice, titolo, autore, genere, posizione
                     FROM libri
                     ORDER BY genere";
 
-            $ris = $conn->query($sql) or die("<p>Query fallita! ".$conn->error."</p>");
-        } else{
-            $conn = new mysqli($servername,$db_username,$db_password,$db_name);
-            $sql = "SELECT codice, titolo, autore, genere, posizione
+        $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+    } else {
+        $conn = new mysqli($servername, $db_username, $db_password, $db_name);
+        $sql = "SELECT codice, titolo, autore, genere, posizione
                     FROM libri
                     ORDER BY codice";
 
-            $ris = $conn->query($sql) or die("<p>Query fallita! ".$conn->error."</p>");
-        }
+        $ris = $conn->query($sql) or die("<p>Query fallita! " . $conn->error . "</p>");
+    }
     ?>
     <div class="tabella">
         <table class="table table-striped">
@@ -103,20 +105,21 @@
             </thead>
             <tbody>
                 <?php
-                    if ($ris->num_rows > 0) {
-                        while($row = $ris->fetch_assoc()) {
-                            echo "<tr>
-                                    <td>".$row["codice"]."</td>
-                                    <td>".$row["titolo"]."</td>
-                                    <td>".$row["autore"]."</td>
-                                    <td>".$row["genere"]."</td>
-                                    <td>".$row["posizione"]."</td>
+                if ($ris->num_rows > 0) {
+                    while ($row = $ris->fetch_assoc()) {
+                        echo "<tr>
+                                    <td>" . $row["codice"] . "</td>
+                                    <td>" . $row["titolo"] . "</td>
+                                    <td>" . $row["autore"] . "</td>
+                                    <td>" . $row["genere"] . "</td>
+                                    <td>" . $row["posizione"] . "</td>
                                 </tr>";
-                        }
                     }
+                }
                 ?>
             </tbody>
         </table>
     </div>
 </body>
+
 </html>
