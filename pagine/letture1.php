@@ -18,10 +18,10 @@
         header('location: logout.php');
     }
     $username = $_SESSION["username"];
-    $servername = $_SESSION["servername"];
-    $db_name = $_SESSION["db_name"];
-    $db_username = $_SESSION["db_username"];
-    $db_password = $_SESSION["db_password"];
+    $servername = 'bibliotekaprojekt-server.mysql.database.azure.com';
+    $db_name = 'mydatabse';
+    $db_username = 'tmdzlzwxgh';
+    $db_password = 'Projekt123';
     $error = true;
     ?>
 </head>
