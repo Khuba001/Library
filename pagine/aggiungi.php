@@ -58,12 +58,12 @@
                 <div class="col-sm-3"></div>
                 <div class="form-check-inline">
                     <label class="form-check-label col-sm-4" for="radio1">
-                        <input type="radio" class="form-check-input" id="radio1" name="posizione" value="Camera Lorenzo"> Pokój Lorenzo
+                        <input type="radio" class="form-check-input" id="radio1" name="posizione" value="Pokój Lorenzo"> Pokój Lorenzo
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label col-sm-4" for="radio2">
-                        <input type="radio" class="form-check-input" id="radio2" name="posizione" value="Camera Matteo"> Pokój Matteo
+                        <input type="radio" class="form-check-input" id="radio2" name="posizione" value="Pokój Matteo"> Pokój Matteo
                     </label>
                 </div>
                 <div class="form-check-inline">
