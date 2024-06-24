@@ -30,7 +30,7 @@
     <ul class="barra">
         <li class="barra"><a class="barra" href="home.php?ordine">Strona główna</a></li>
         <li class="barra"><a class="barra" href="aggiungi.php">Dodaj książkę</a></li>
-        <li class="barra"><a class="barra" href="letture.php">Wypożyczenia</a></li>
+        <li class="barra"><a class="barra" href="letture.php">Lektury</a></li>
         <li class="barra" style="float: right;"><a class="barra" href="logout.php">Wyloguj</a></li>
     </ul>
     <div id="titolo2">

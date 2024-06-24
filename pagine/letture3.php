@@ -30,16 +30,16 @@
     <ul class="barra">
         <li class="barra"><a class="barra" href="home.php?ordine">Home</a></li>
         <li class="barra"><a class="barra" href="aggiungi.php">Dodaj książkę</a></li>
-        <li class="barra"><a class="barra" href="letture.php">Wypożyczenia</a></li>
+        <li class="barra"><a class="barra" href="letture.php">Lektury</a></li>
         <li class="barra" style="float: right;"><a class="barra" href="logout.php">Wyloguj</a></li>
     </ul>
     <div id="titolo2">
-        <h1 class="aggiungi"><b>Lista wypożyczeń</b></h1>
+        <h1 class="aggiungi"><b>Lista Lektur</b></h1>
     </div>
     <div class="btn-group btn-group-justified" style="width: 500px; margin: auto;">
         <a href="letture1.php" class="btn btn-primary">Rozpocznij czytanie</a>
-        <a href="letture2.php" class="btn btn-primary">Aktualne wypożyczenia</a>
-        <a href="letture3.php" class="btn btn-primary">Lista wypożyczeń</a>
+        <a href="letture2.php" class="btn btn-primary">Aktualne Lektury</a>
+        <a href="letture3.php" class="btn btn-primary">Lista Lekutr</a>
     </div>
 
     <div class="tabella">

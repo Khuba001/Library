@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<div class='row' style='margin-top: 30px;'>
                     <div class='col-sm-4'></div>
                     <div class='col-sm-4'>
-                        <div class='alert alert-danger'><strong>Errore!</strong> Utente non trovato o password errata.</div>
+                        <div class='alert alert-danger'><strong>Errore!</strong> Nie prawidłowe hasło.</div>
                     </div>
                 </div>";
         } else {
