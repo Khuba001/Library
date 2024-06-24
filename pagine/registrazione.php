@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <title>Biblioteca - Registrazione</title>
+    <title>Biblioteka - Rejestracja</title>
     <?php
     $servername = "bibliotekaprojekt-server.mysql.database.azure.com";
     $db_name = "mydatabase";
@@ -24,7 +24,7 @@
     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
         <div class="form1">
             <div id="titolo1">
-                <h1 class="aggiungi"><b>Registrati</b></h1>
+                <h1 class="aggiungi"><b>Zarejestruj się</b></h1>
             </div>
             <div class="row" id="login">
                 <div class="col-sm-4"></div>
@@ -41,19 +41,19 @@
             <div class="row" id="login">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <input class="form-control" id="aggiungi" type="text" name="nome" placeholder="Nome">
+                    <input class="form-control" id="aggiungi" type="text" name="nome" placeholder="Imię">
                 </div>
             </div>
             <div class="row" id="login">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <input class="form-control" id="aggiungi" type="text" name="cognome" placeholder="Cognome">
+                    <input class="form-control" id="aggiungi" type="text" name="cognome" placeholder="Nazwisko">
                 </div>
             </div>
             <div class="row" id="login">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <input class="btn btn-primary" id="bottone1" type="submit" value="Registrati">
+                    <input class="btn btn-primary" id="bottone1" type="submit" value="Zarejestruj się">
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($_POST["username"] == "" or $_POST["password"] == "") {
-            echo "username e password non possono essere vuoti!";
+            echo "nazwa użytkownika i hasło nie mogą być puste!";
         } else {
             $conn = new mysqli($servername, $db_username, $db_password, $db_name);
             $sql = "SELECT Username 
@@ -69,12 +69,12 @@
                     WHERE Username='" . $_POST["username"] . "'";
             //echo $sql;
 
-            $ris = $conn->query($sql) or die("<p>Query fallita!</p>");
+            $ris = $conn->query($sql) or die("<p>Zapytanie nie powiodło się!</p>");
             if ($ris->num_rows > 0) {
                 echo "<div class='row' style='margin-top: 30px;'>
                                 <div class='col-sm-3'></div>
                                 <div class='col-sm-6'>
-                                    <div class='alert alert-danger'><strong>Errore!</strong> Lo username scelto non è disponibile.</div>
+                                    <div class='alert alert-danger'><strong>Błąd!</strong> Wybrana nazwa użytkownika jest niedostępna.</div>
                                 </div>
                             </div>";
             } else {
@@ -87,7 +87,7 @@
                     $conn->close();
                     header("location: home.php");
                 } else {
-                    echo "Registrazione non riuscita: " . $conn->error;
+                    echo "Rejestracja nie powiodła się: " . $conn->error;
                 }
             }
         }
